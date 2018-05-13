@@ -1,31 +1,34 @@
 class ReceiptsController < ApplicationController
   before_action :set_receipt, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
+  
 
-  # GET /receipts
-  # GET /receipts.json
   def index
     @receipts = Receipt.all
   end
 
-  # GET /receipts/1
-  # GET /receipts/1.json
   def show
   end
-
-  # GET /receipts/new
+ # GET /receipts/new
   def new
     @receipt = Receipt.new
+    @receipt = current_user.receipt.build
   end
-
-  # GET /receipts/1/edit
+ # GET /receipts/1/edit
   def edit
   end
 
-  # POST /receipts
-  # POST /receipts.json
   def create
-    @receipt = Receipt.new(receipt_params)
-
+    @receipt = current_user.receipts.build(receipt_params)
+      if @receipt.save
+        redirect_to @receipt, notice: 'Receipt was successfully created'.
+          else
+            render action: 'new'
+      end
+  end
+  
+  
     respond_to do |format|
       if @receipt.save
         format.html { redirect_to @receipt, notice: 'Receipt was successfully created.' }
@@ -35,31 +38,31 @@ class ReceiptsController < ApplicationController
         format.json { render json: @receipt.errors, status: :unprocessable_entity }
       end
     end
-  end
+  
 
-  # PATCH/PUT /receipts/1
-  # PATCH/PUT /receipts/1.json
   def update
+    @receipt = current_user.receipts.build(receipt_params)
+      # if @receipt.save
+        redirect_to @receipt, notice: 'Receipt was successfully created'.
+      else
     respond_to do |format|
       if @receipt.update(receipt_params)
-        format.html { redirect_to @receipt, notice: 'Receipt was successfully updated.' }
+        # format.html { redirect_to @receipt, notice: 'Receipt was successfully updated.' }
         format.json { render :show, status: :ok, location: @receipt }
       else
         format.html { render :edit }
         format.json { render json: @receipt.errors, status: :unprocessable_entity }
       end
-    end
   end
 
-  # DELETE /receipts/1
-  # DELETE /receipts/1.json
+
   def destroy
     @receipt.destroy
     respond_to do |format|
       format.html { redirect_to receipts_url, notice: 'Receipt was successfully destroyed.' }
       format.json { head :no_content }
-    end
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -71,4 +74,11 @@ class ReceiptsController < ApplicationController
     def receipt_params
       params.require(:receipt).permit(:description)
     end
+  end
+   
+   def correct_user
+      @receipts = current user.receipts.find_by(id: params[:id])
+      redirect_to receipts_path, notice: "Not authorized to edit this receipt" if @receipt.nil?
+   end
+  end
 end
