@@ -11,6 +11,11 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'spring', group: :development
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 gem 'devise', '~> 4.4', '>= 4.4.3'
+gem 'imagemagick-identify'
+gem 'gravatar_image_tag'
+gem 'paperclip', '~> 6.0'
+
+
 
 group :development, :test do
   gem 'sqlite3'
