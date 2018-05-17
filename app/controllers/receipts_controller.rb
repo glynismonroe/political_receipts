@@ -21,11 +21,10 @@ class ReceiptsController < ApplicationController
 
   def create
     @receipt = current_user.receipts.build(receipt_params)
-    if @receipt.save
-       redirect_to @receipt, notice: 'Receipt was successfully created'.
-    else
-       render action: 'new'
-    end
+    # if @receipt.save
+    #   redirect_to @receipt, notice: "Receipt was successfully created".
+    # else
+    #   render action: 'new'
   end
 
   def update

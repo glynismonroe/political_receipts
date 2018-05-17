@@ -1,10 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <%= image_tag @receipt.image.url(:medium) %><br/>
+  <%= image_tag @receipt.image.url(:thumb) %><br/>
   <strong>Description:</strong>
   <%= @receipt.description %>
 </p>
 
-<%= link_to 'Edit', edit_receipts_path(@receipt) %> |
-<%= link_to 'Back', receipts_path %>
+<% if @receipt.user == current_user %>
+   <%= link_to 'Edit', edit_receipt_path(@receipt) %> |
+<% end %>
+<%= link_to 'Back', receipt_path %>
+
+

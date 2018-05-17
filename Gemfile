@@ -14,6 +14,7 @@ gem 'devise', '~> 4.4', '>= 4.4.3'
 gem 'imagemagick-identify'
 gem 'gravatar_image_tag'
 gem 'paperclip', '~> 6.0'
+gem 'identify', '~> 0.1.1'
 
 
 

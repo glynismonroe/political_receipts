@@ -70,6 +70,7 @@ GEM
       activesupport (>= 4.2.0)
     gravatar_image_tag (1.2.0)
     i18n (0.8.6)
+    identify (0.1.1)
     imagemagick-identify (0.0.1)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -193,6 +194,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   devise (~> 4.4, >= 4.4.3)
   gravatar_image_tag
+  identify (~> 0.1.1)
   imagemagick-identify
   jbuilder (~> 2.0)
   jquery-rails
